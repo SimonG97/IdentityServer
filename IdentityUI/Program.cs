@@ -1,5 +1,6 @@
 using IdentityUI;
 using IdentityUI.DbContexts;
+using IdentityUI.Initializer;
 using IdentityUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,17 @@ var identityServices = builder.Services.AddIdentityServer(options =>
 
 identityServices.AddDeveloperSigningCredential();
 
+//configuring services
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 var app = builder.Build();
+
+//initializing custom interface during runtime
+using (var scope = app.Services.CreateScope())
+{
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    dbInitializer.Initialize();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
