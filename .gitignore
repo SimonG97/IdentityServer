@@ -1,3 +1,5 @@
 IdentityUI/bin/Debug/net6.0/IdentityUI.dll
 IdentityUI/bin/Debug/net6.0/IdentityUI.dll
-IdentityUI/bin/
+IdentityUI/bin
+IdentityUI/obj
+IdentityUI/obj/staticwebassets.pack.sentinel
