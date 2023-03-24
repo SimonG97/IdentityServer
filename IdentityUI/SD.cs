@@ -22,7 +22,8 @@ public static class SD
             new ApiScope(name:"delete", displayName:"Delete your data."),
         };
     public static IEnumerable<Client> Clients =>
-        new List<Client>{
+        new List<Client>
+        {
             new Client
             {
                 ClientId="Client",
@@ -35,13 +36,14 @@ public static class SD
                 ClientId="mango",
                 ClientSecrets={new Secret("secret".Sha256())},
                 AllowedGrantTypes=GrantTypes.Code,
-                RedirectUris={"http://localhost:5033/signin-oidc"},
-                PostLogoutRedirectUris={"http://localhost:5033/signout-callback-oidc"},
+                RedirectUris={"http://localhost:5200/signin-oidc"},
+                PostLogoutRedirectUris={"http://localhost:5200/signout-callback-oidc"},
                 AllowedScopes= new List<string>
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    IdentityServerConstants.StandardScopes.Email
+                    IdentityServerConstants.StandardScopes.Email,
+                    "mango"
                 }
             }
         };

@@ -17,16 +17,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
 //configuring identity service
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-var identityServices = builder.Services.AddIdentityServer(options =>
+builder.Services.AddIdentityServer(options =>
 {
     options.Events.RaiseErrorEvents = true;
     options.Events.RaiseInformationEvents = true;
     options.Events.RaiseFailureEvents = true;
     options.Events.RaiseSuccessEvents = true;
     options.EmitStaticAudienceClaim = true;
-}).AddInMemoryIdentityResources(SD.IdentityResources).AddInMemoryApiScopes(SD.ApiScopes).AddInMemoryClients(SD.Clients).AddAspNetIdentity<ApplicationUser>();
-
-identityServices.AddDeveloperSigningCredential();
+}).AddInMemoryIdentityResources(SD.IdentityResources)
+.AddInMemoryApiScopes(SD.ApiScopes)
+.AddInMemoryClients(SD.Clients)
+.AddAspNetIdentity<ApplicationUser>()
+.AddDeveloperSigningCredential();
 
 //configuring services
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
